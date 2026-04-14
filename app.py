@@ -1,16 +1,11 @@
-import os
-
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from dotenv import load_dotenv
 
-
-load_dotenv()
+#crear instancia
 app =  Flask(__name__)
 
-# Configuración de la base de datos
-# Usa DATABASE_URL (o SQLALCHEMY_DATABASE_URI) de .env; si no existe, cae en sqlite local.
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL') or os.getenv('SQLALCHEMY_DATABASE_URI') or 'sqlite:///estudiantes.db'
+# Configuración de la base de datos PostgreSQL
+app.config['SQLALCHEMY_DATABASE_URI'] = 'DATABASE_URL'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -97,8 +92,4 @@ def getAlumnos():
 
 
 if __name__ == '__main__':
-    # Crear las tablas en la base de datos si aún no existen
-    with app.app_context():
-        db.create_all()
-
     app.run(debug=True)
