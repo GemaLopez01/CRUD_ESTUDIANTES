@@ -1,0 +1,13 @@
+services:
+  crud_estudiantes:
+    image: gemalm15/crud_estudiantes:latest
+    ports:
+      - "5001:5000"
+    environment:
+      DATABASE_URL: postgresql://postgres:Admin123@postgres-db:5432/db_postgres
+    networks:
+      - CN2
+
+networks:
+  CN2:
+    external: true
